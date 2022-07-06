@@ -16,7 +16,7 @@ export default function Form({ children, body, auth, action, endpoint }) {
         const promise = auth ?
             axios.post(API + endpoint, body, user.token) :
             axios.post(API + endpoint, body);
-        promise.then(res => {            
+        promise.then(res => {
             action(res);
             console.log(res);
             setIsLoading(false);
@@ -28,12 +28,20 @@ export default function Form({ children, body, auth, action, endpoint }) {
 
     }
     return (
-        <StyledForm onSubmit={(e) => sendForm(e)}>
-            {children}
-        </StyledForm>
+        <ContainerForm>
+            <StyledForm onSubmit={(e) => sendForm(e)}>
+                {children}
+            </StyledForm>
+        </ContainerForm>
     );
 }
 
 const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+`;
 
+const ContainerForm = styled.div`
+    width: 326px;
+    background-color: white;
 `;

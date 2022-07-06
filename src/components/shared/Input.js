@@ -1,21 +1,13 @@
-import styled from "styled-components";
+import { TextField } from "@mui/material"
 
-export default function Input({ setValue, value, text, type, name, result, setResult }) {
+export default function Input({ setValue, value, text, type, name, result }) {
     const error = result && result.find(r => r.label === name)
-
-    if(error){
-        value = "";
-    }
-
     function setInput(value) {
         setValue(value);
-        error && setResult(result.filter(err => err.label !== name));
     }
-
     return (
-        <StyledInput color={error ? "red" : "transparent"} value={value} placeholder={error ? error.text : text} onChange={(e) => setInput(e.target.value)} type={type ? type : "text"} />
-    );
+        <TextField error={error ? true : false} value={value} label={text} helperText={error && error.text} onChange={(e) => setInput(e.target.value)} type={type ? type : "text"} />
+    )
 }
-const StyledInput = styled.input`
-    border: 1px solid ${({ color }) => color};
-`;
+
+
