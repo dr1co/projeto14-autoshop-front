@@ -10,6 +10,7 @@ export default function SignUp() {
     const [password, setPassword] = useState("");
     const [rePassword, setRePassword] = useState("");
     const [isDisabled, setIsDisabled] = useState(true);
+    const [result, setResult] = useState([]);
     const navigate = useNavigate();
 
     const body = {
@@ -26,15 +27,25 @@ export default function SignUp() {
         }
     }, [password, rePassword]);
 
+    function validate(result){
+        if (result.status === 200){
+            setTimeout(()=> navigate("/login"), 3000)
+        } else {
+            setPassword("");
+            setRePassword("");
+        }
+        setResult(result.data);
+    }
+
     return (
         <>
-            <Form endpoint={"/signup"} action={() => navigate("/login")} body={body}>
-                <Input text={"Nome"} setValue={setName} />
-                <Input text={"Email"} setValue={setEmail}/>
-                <Input text={"Senha"} setValue={setPassword}/>
-                <Input text={"Confirme a senha"} setValue={setRePassword}/>
+            <Form endpoint={"/signup"} action={validate} body={body}>
+                <Input text={"Nome"} name={"name"} setValue={setName} value={name} result={result} setResult={setResult}/>
+                <Input text={"Email"} name={"email"} setValue={setEmail} value={email} result={result} setResult={setResult}/>
+                <Input text={"Senha"} value={password} setValue={setPassword} />
+                <Input text={"Confirme a senha"} value={rePassword}  setValue={setRePassword} />
                 <ButtonForm text={"Cadastrar"} isDisabled={isDisabled} />
-            </Form>
+            </Form> 
         </>
     );
 }
