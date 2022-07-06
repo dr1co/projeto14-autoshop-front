@@ -11,24 +11,37 @@ export default function Form({ children, body, auth, action, endpoint }) {
     async function sendForm(e) {
         e.preventDefault();
         setIsLoading(true);
-        try {
-            const { data } = await auth ?
-                axios.post(API + endpoint, body, user.token) :
-                axios.post(API + endpoint, body);
-            action(data);
+
+
+        const promise = auth ?
+            axios.post(API + endpoint, body, user.token) :
+            axios.post(API + endpoint, body);
+        promise.then(res => {
+            action(res);
+            console.log(res);
             setIsLoading(false);
-        } catch (err) {
-            console.log(err);
+        }).catch(err => {
+            const { response } = err;
             setIsLoading(false);
-        }
+            action(response);
+        });
+
     }
     return (
-        <StyledForm onSubmit={(e) => sendForm(e)}>
-            {children}
-        </StyledForm>
+        <ContainerForm>
+            <StyledForm onSubmit={(e) => sendForm(e)}>
+                {children}
+            </StyledForm>
+        </ContainerForm>
     );
 }
 
 const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+`;
 
+const ContainerForm = styled.div`
+    width: 326px;
+    background-color: white;
 `;
