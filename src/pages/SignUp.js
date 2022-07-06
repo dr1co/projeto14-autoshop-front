@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Form from "../components/shared/Form";
 import Input from "../components/shared/Input";
 import ButtonForm from "../components/shared/ButtonForm";
-import { useIsLoandingContext } from "../contexts/IsLoadingContext";
 
 export default function SignUp() {
     const [name, setName] = useState("");
@@ -11,7 +10,6 @@ export default function SignUp() {
     const [password, setPassword] = useState("");
     const [rePassword, setRePassword] = useState("");
     const [isDisabled, setIsDisabled] = useState(true);
-    const { setIsLoading } = useIsLoandingContext();
     const navigate = useNavigate();
 
     const body = {

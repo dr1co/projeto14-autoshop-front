@@ -4,7 +4,7 @@ const IsLoadingContext = createContext();
 
 export const useIsLoandingContext = () => useContext(IsLoadingContext);
 
-export default function isLoadingContextProvides ({children}){
+export default function IsLoadingContextProvider ({children}){
     const [isLoading, setIsLoading] = useState(false);
     return(
         <IsLoadingContext.Provider value={{isLoading, setIsLoading}}>
