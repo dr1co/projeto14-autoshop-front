@@ -18,7 +18,13 @@ export default function SignUp() {
         password
     }
 
-    password === rePassword ? setIsDisabled(false) : setIsDisabled(true);
+    useEffect(() => {
+        if ((password.length > 0 && rePassword.length > 0) && password === rePassword) {
+            setIsDisabled(false);
+        } else {
+            setIsDisabled(true);
+        }
+    }, [password, rePassword]);
 
     return (
         <>
