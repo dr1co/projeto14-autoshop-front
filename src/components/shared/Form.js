@@ -1,12 +1,12 @@
 import axios from "axios";
 import styled from "styled-components";
 import { API } from "../../API";
-import { useIsLoandingContext } from "../../contexts/IsLoadingContext";
+import { useIsLoadingContext } from "../../contexts/IsLoadingContext";
 import { useUserContext } from "../../contexts/UserContext";
 
 export default function Form({ children, body, auth, action, endpoint }) {
     const { user } = useUserContext();
-    const {setIsLoading} = useIsLoandingContext();
+    const { setIsLoading } = useIsLoadingContext();
 
     async function sendForm(e) {
         e.preventDefault();
