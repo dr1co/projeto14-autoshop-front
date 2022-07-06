@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useIsLoandingContext } from "../../contexts/IsLoadingContext";
 
-export default function ButtonForm ({text}){
-    const {isLoading} = useIsLoandingContext();
+
+export default function ButtonForm ({text, isDisabled}){
+    
     return(
-        <StyledButton disabled={isLoading}>{text}</StyledButton>
+        <StyledButton disabled={isDisabled}>{text}</StyledButton>
     );
 }
 
