@@ -1,5 +1,6 @@
 import axios from "axios";
 import styled from "styled-components";
+import { API } from "../../API";
 import { useIsLoandingContext } from "../../contexts/IsLoadingContext";
 import { useUserContext } from "../../contexts/UserContext";
 
@@ -12,8 +13,8 @@ export default function Form({ children, body, auth, action, endpoint }) {
         setIsLoading(true);
         try {
             const { data } = await auth ?
-                axios.post(endpoint, body, user.token) :
-                axios.post(endpoint, body);
+                axios.post(API + endpoint, body, user.token) :
+                axios.post(API + endpoint, body);
             action(data);
             setIsLoading(false);
         } catch (err) {
