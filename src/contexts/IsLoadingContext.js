@@ -1,0 +1,14 @@
+import {createContext, useContext, useState } from "react";
+
+const IsLoadingContext = createContext();
+
+export const useIsLoandingContext = () => useContext(IsLoadingContext);
+
+export default function isLoadingContextProvides ({children}){
+    const [isLoading, setIsLoading] = useState(false);
+    return(
+        <IsLoadingContext.Provider value={{isLoading, setIsLoading}}>
+            {children}
+        </IsLoadingContext.Provider>
+    );
+}
