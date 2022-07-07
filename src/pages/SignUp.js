@@ -42,8 +42,8 @@ export default function SignUp() {
         <Form endpoint={"/signup"} action={validate} body={body}>
             <Input text={"Nome"} name={"name"} setValue={setName} value={name} result={result}  />
             <Input text={"Email"} name={"email"} setValue={setEmail} value={email} result={result} />
-            <Input text={"Senha"} value={password} setValue={setPassword} />
-            <Input text={"Confirme a senha"} value={rePassword} setValue={setRePassword} />
+            <Input text={"Senha"} value={password} setValue={setPassword} type={"password"} />
+            <Input text={"Confirme a senha"} value={rePassword} setValue={setRePassword} type={"password"} />
             <ButtonForm text={"Cadastrar"} isDisabled={isDisabled} />
         </Form>
 
