@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FlexContainer } from "../styles/FlexContainer";
 
-export default function Input({ setValue, value, text, type, name, result }) {
+export default function Input({ setValue, value, text, type, name, result = [] }) {
     const error = result && result.find(r => r.label === name)
     function setInput(value) {
         setValue(value);
