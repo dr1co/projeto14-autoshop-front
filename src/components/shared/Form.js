@@ -44,4 +44,7 @@ const StyledForm = styled.form`
 const ContainerForm = styled.div`
     width: 326px;
     background-color: white;
+    border-radius: 10%;
+    padding: 15px;
+
 `;
