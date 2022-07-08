@@ -31,7 +31,7 @@ export default function BrandForm({ setIsHidden }) {
     setResult(result.data);
   }
   return (
-    <BackgroundOverlay>
+    <BackgroundOverlay onClick={() => setIsHidden(true)}>
       <FlexContainer direction={"column"} justify={"center"} align={"center"}>
         <Title>Cadastrar nova marca</Title>
         <Form endpoint={"/product/brand"} action={validate} body={body}>
