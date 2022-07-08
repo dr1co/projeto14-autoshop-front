@@ -22,7 +22,7 @@ export default function Home (){
             image: "https://i.ytimg.com/vi/RTFJsGtJEtY/maxresdefault.jpg",
             categoryId: "vehicle",
             brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
+            sku: "cod1001"
         },{
             _id: "123abc",
             name: "produto genérico",
@@ -197,6 +197,7 @@ function Product({ product, isLoading, setIsLoading, setMessage }) {
     const [showDesc, setShowDesc] = useState(false);
     //const { user, setUser } = useUserContext();
     const navigate = useNavigate();
+    const timer = 3000;
 
     function mouseOver() {
         setShowDesc(true);
@@ -224,14 +225,12 @@ function Product({ product, isLoading, setIsLoading, setMessage }) {
                 setIsLoading(false);
             });
         } else if (!user.token) {
-            const timer = 5000;
             setMessage("Não há usuário logado. Faça login agora!");
             setTimeout(() => {
                 setMessage("");
                 setIsLoading(false);
             }, timer);
         } else {
-            const timer = 5000;
             setMessage("Botão desabilitado, aguarde!");
             setTimeout(() => {
                 setMessage("");
@@ -279,6 +278,7 @@ const Container = styled.div`
     align-items: center;
 
     h1 {
+        width: 100%;
         font-size: 22px;
         font-weight: 700;
         text-align: left;
@@ -297,6 +297,7 @@ const ProductsBox = styled.div`
     margin: 10px 0;
 
     h2 {
+        width: 100%;
         font-size: 20px;
         font-weight: 600;
         text-align: center;
@@ -318,7 +319,6 @@ const ProductContainer = styled.div`
     height: 300px;
     margin: 10px;
     background: #FFFFFF;
-    border: 1px solid var(--primary-color);
     border-radius: 10px;
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
     position: relative;
@@ -348,6 +348,7 @@ const ProductFront = styled.div`
         font-size: 16px;
         font-weight: 600;
         text-align: left;
+        color: var(--secondary-color);
     }
 `;
 
@@ -364,6 +365,7 @@ const ProductTitle = styled.span`
         font-weight: 700;
         display: flex;
         align-items: center;
+        color: var(--primary-color);
     }
 `;
 
@@ -432,6 +434,7 @@ const WarnModal = styled.div`
     width: 300px;
     height: 70px;
     background-color: red;
+    border-radius: 10px;
     display: ${props => props.display};
     justify-content: center;
     align-items: center;
