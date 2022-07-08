@@ -12,119 +12,7 @@ import { heartOutline, heart } from "ionicons/icons";
 import { useIsLoadingContext } from "../contexts/IsLoadingContext.js";
 
 export default function Home (){
-    const [products, setProducts] = useState([
-        {
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://i.ytimg.com/vi/RTFJsGtJEtY/maxresdefault.jpg",
-            categoryId: "vehicle",
-            brandId: "Uma marca genérica",
-            sku: "cod1001"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://i.ytimg.com/vi/RTFJsGtJEtY/maxresdefault.jpg",
-            categoryId: "vehicle",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://i.ytimg.com/vi/RTFJsGtJEtY/maxresdefault.jpg",
-            categoryId: "vehicle",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://i.ytimg.com/vi/RTFJsGtJEtY/maxresdefault.jpg",
-            categoryId: "vehicle",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://i.ytimg.com/vi/RTFJsGtJEtY/maxresdefault.jpg",
-            categoryId: "vehicle",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvL0IRqYEf-WlS_7pMLtSejxZ8HwhJAR9BwgfoQ1gdbY1GTLXFnyyevS8j138pyM96Hak&usqp=CAU",
-            categoryId: "addon",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvL0IRqYEf-WlS_7pMLtSejxZ8HwhJAR9BwgfoQ1gdbY1GTLXFnyyevS8j138pyM96Hak&usqp=CAU",
-            categoryId: "addon",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvL0IRqYEf-WlS_7pMLtSejxZ8HwhJAR9BwgfoQ1gdbY1GTLXFnyyevS8j138pyM96Hak&usqp=CAU",
-            categoryId: "addon",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvL0IRqYEf-WlS_7pMLtSejxZ8HwhJAR9BwgfoQ1gdbY1GTLXFnyyevS8j138pyM96Hak&usqp=CAU",
-            categoryId: "addon",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvL0IRqYEf-WlS_7pMLtSejxZ8HwhJAR9BwgfoQ1gdbY1GTLXFnyyevS8j138pyM96Hak&usqp=CAU",
-            categoryId: "addon",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },{
-            _id: "123abc",
-            name: "produto genérico",
-            currency_symbol: "R$",
-            description: "top 10 descrições fodas",
-            price: 150000.00,
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvL0IRqYEf-WlS_7pMLtSejxZ8HwhJAR9BwgfoQ1gdbY1GTLXFnyyevS8j138pyM96Hak&usqp=CAU",
-            categoryId: "addon",
-            brandId: "Uma marca genérica",
-            sku: "nn sei qq é isso"
-        },
-    ]);
+    const [products, setProducts] = useState([]);
     const { isLoading, setIsLoading } = useIsLoadingContext();
     const [message, setMessage] = useState("");
 
@@ -146,9 +34,9 @@ export default function Home (){
             <Header />
             <Container>
                 <h1>Lançamentos Recentes</h1>
-                <Products justify="space-between" align="center">
+                <Products justify={products.length === 0 ? "center" : "start"}>
                     {isLoading ? "Carregando produtos..." :
-                    (products.length === 0 ? "Não há produtos cadastrados :(" :
+                    (products.length === 0 ? <NoProduct /> :
                     products.reverse().map(p => <Product
                     key={p._id}
                     product={p}
@@ -160,9 +48,9 @@ export default function Home (){
                 <FlexContainer justify="space-between" align="center">
                     <ProductsBox>
                         <h2>Veículos</h2>
-                        <Products>
+                        <Products justify={products.filter(p => p.categoryId === "vehicle").length === 0 ? "center" : "start"}>
                             {isLoading ? "Carregando produtos..." :
-                            (products.length === 0 ? "Não há produtos cadastrados :(" :
+                            (products.filter(p => p.categoryId === "vehicle").length === 0 ? <NoProduct /> :
                             products.filter(p => p.categoryId === "vehicle").map(p => <Product
                                 key={p._id}
                                 product={p}
@@ -173,9 +61,9 @@ export default function Home (){
                     </ProductsBox>
                     <ProductsBox>
                         <h2>Acessórios</h2>
-                        <Products>
+                        <Products justify={products.filter(p => p.categoryId === "addon").length === 0 ? "center" : "start"}>
                             {isLoading ? "Carregando produtos..." :
-                            (products.length === 0 ? "Não há produtos cadastrados :(" :
+                            (products.filter(p => p.categoryId === "addon").length === 0 ? <NoProduct /> :
                             products.filter(p => p.categoryId === "addon").map(p => <Product
                             key={p._id}
                             product={p}
@@ -269,6 +157,14 @@ function Product({ product, isLoading, setIsLoading, setMessage }) {
     )
 }
 
+function NoProduct() {
+    return (
+        <NoProductContainer>
+            <p> Não há produtos cadastrados aqui no momento :( </p>
+        </NoProductContainer>
+    )
+}
+
 const Container = styled.div`
     width: 1150px;
     height: fit-content;
@@ -309,13 +205,14 @@ const Products = styled.div`
     min-height: 320px;
     margin: 10px auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: ${props => props.justify};
     align-items: center;
     overflow-y: scroll;
 `;
 
 const ProductContainer = styled.div`
     min-width: 270px;
+    max-width: 270px;
     height: 300px;
     margin: 10px;
     background: #FFFFFF;
@@ -421,6 +318,21 @@ const ProductButtons = styled.div`
         &:active {
             background: darkblue;
         }
+    }
+`;
+
+const NoProductContainer = styled.div`
+    width: 100%;
+    height: 320px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p{
+        font-size: 20px;
+        color: var(--secondary-color);
     }
 `;
 
