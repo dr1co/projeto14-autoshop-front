@@ -4,6 +4,7 @@ import UserContextProvider from './contexts/UserContext';
 import { GlobalStyle, ResetStyle } from "./globalStyle";
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Product from './pages/Product';
 import SignUp from './pages/SignUp';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
                         <Route path={"/home"} element={<Home />}/>
                         <Route path={"/login"} element={<Login />} />
                         <Route path={"/signup"} element={<SignUp />} />
+                        <Route path={"/products/:productId"} element={<Product />} />
                     </Routes>
                 </IsLoadingContextProvider>
             </UserContextProvider>

@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { API } from '../API';
 import Header from "../components/layouts/Header.js";
 import { FlexContainer } from "../components/styles/FlexContainer.js";
 import { useUserContext } from "../contexts/UserContext.js";
 import { IonIcon } from "@ionic/react";
-import { heartOutline } from "ionicons/icons";
+import { heartOutline, heart } from "ionicons/icons";
+import { useIsLoadingContext } from "../contexts/IsLoadingContext.js";
 
 export default function Home (){
     const [products, setProducts] = useState([
@@ -122,15 +124,36 @@ export default function Home (){
             brandId: "Uma marca genérica",
             sku: "nn sei qq é isso"
         },
-    ])
+    ]);
+    const { isLoading, setIsLoading } = useIsLoadingContext();
+    const [message, setMessage] = useState("");
 
-    return(
+    useEffect(() => {
+        setIsLoading(true);
+        const promise = axios.get(`${API}/products`);
+        promise.then((res) => {
+            setProducts(res.data);
+            setIsLoading(false);
+        });
+        promise.catch((err) => {
+            console.log(err.response);
+            setIsLoading(false);
+        });
+    }, []);
+
+    return (
         <>
             <Header />
             <Container>
                 <h1>Lançamentos Recentes</h1>
                 <Products justify="space-between" align="center">
-                    {products.map(p => <Product product={p} />)}
+                    {isLoading ? "Carregando produtos..." :
+                    (products.length === 0 ? "Não há produtos cadastrados :(" :
+                    products.reverse().map(p => <Product
+                    key={p._id}
+                    product={p}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading} />))}
                 </Products>
                 <SeparationBar />
                 <h1>Todos os Produtos</h1>
@@ -138,44 +161,117 @@ export default function Home (){
                     <ProductsBox>
                         <h2>Veículos</h2>
                         <Products>
-                            
+                            {isLoading ? "Carregando produtos..." :
+                            (products.length === 0 ? "Não há produtos cadastrados :(" :
+                            products.filter(p => p.categoryId === "vehicle").map(p => <Product
+                                key={p._id}
+                                product={p}
+                                isLoading={isLoading}
+                                setIsLoading={setIsLoading}
+                                setMessage={setMessage} />))}
                         </Products>
                     </ProductsBox>
                     <ProductsBox>
                         <h2>Acessórios</h2>
                         <Products>
-                            
+                            {isLoading ? "Carregando produtos..." :
+                            (products.length === 0 ? "Não há produtos cadastrados :(" :
+                            products.filter(p => p.categoryId === "addon").map(p => <Product
+                            key={p._id}
+                            product={p}
+                            isLoading={isLoading}
+                            setIsLoading={setIsLoading}
+                            setMessage={setMessage} />))}
                         </Products>
                     </ProductsBox>
                 </FlexContainer>
+            <WarnModal display={message ? "flex" : "none"}>
+                <p>{message}</p>
+            </WarnModal>
             </Container>
         </>
     );
 }
 
-function Product({ product }) {
+function Product({ product, isLoading, setIsLoading, setMessage }) {
     const [showDesc, setShowDesc] = useState(false);
+    //const { user, setUser } = useUserContext();
+    const navigate = useNavigate();
+
+    function mouseOver() {
+        setShowDesc(true);
+    }
+
+    function mouseOut(){
+        setShowDesc(false);
+    }
+
+    function addToFavorites() {
+        /* if (user.token && !isLoading) {
+            setIsLoading(true);
+            const request = axios.post(`${API}/user/favorites`, { id: product._id }, { Headers: {
+                "Authorization": `Bearer ${user.token}`
+            }});
+            request.then((res) => {
+                setUser({
+                    ...user,
+                    favorites: res.data
+                });
+                setIsLoading(false);
+            });
+            request.catch((err) => {
+                console.log(err);
+                setIsLoading(false);
+            });
+        } else if (!user.token) {
+            const timer = 5000;
+            setMessage("Não há usuário logado. Faça login agora!");
+            setTimeout(() => {
+                setMessage("");
+                setIsLoading(false);
+            }, timer);
+        } else {
+            const timer = 5000;
+            setMessage("Botão desabilitado, aguarde!");
+            setTimeout(() => {
+                setMessage("");
+                setIsLoading(false);
+            }, timer);
+        } */
+        console.log("added to favorites");
+    }
 
     return (
         <ProductContainer>
-            <ProductFront display={showDesc ? "none" : "flex"} onMouseEnter={() => setShowDesc(true)} onMouseLeave={() => setShowDesc(false)}>
-                <img src={product.image} />
+            <ProductFront display={showDesc ? "none" : "flex"} onMouseEnter={mouseOver}>
+                <img src={product.image} onMouseEnter={mouseOver} />
                 <ProductTitle>
                     <h1>{product.name}</h1>
-                    <IonIcon icon={heartOutline} />
+                    <StyledIonIcon
+                    icon={/*user.favorites.includes(product._id) ? heart :*/heartOutline}
+                    color={/*user.favorites.includes(product._id) ? "red" :*/"black"} />
                 </ProductTitle>
                 <p>{product.currency_symbol} {product.price.toFixed(2)}</p>
             </ProductFront>
-            <ProductBack display={showDesc ? "flex" : "none"}>
-                {product.description}
-                <button onClick={() => console.log("oi")}>Ver mais detalhes</button>
+            <ProductBack display={showDesc ? "flex" : "none"} onMouseLeave={mouseOut}>
+                <p>{product.description}</p>
+                <ProductButtons>
+                    <div>
+                        <button onClick={() => navigate(`/products/${product._id}`)}>Ver mais detalhes</button>
+                        <button onClick={() => console.log("added to cart")}>Comprar produto</button>
+                    </div>
+                    <StyledIonIcon
+                    icon={/*user.favorites.includes(product._id) ? heart :*/heartOutline}
+                    onClick={addToFavorites}
+                    color={/*user.favorites.includes(product._id) ? "red" :*/"black"} />
+                </ProductButtons>
             </ProductBack>
         </ProductContainer>
     )
 }
 
 const Container = styled.div`
-    width: 950px;
+    width: 1150px;
     height: fit-content;
     margin: 90px auto;
     display: flex;
@@ -196,9 +292,9 @@ const SeparationBar = styled.div`
 `;
 
 const ProductsBox = styled.div`
-    width: 425px;
+    width: 550px;
     height: fit-content;
-    margin: auto 10px;
+    margin: 10px 0;
 
     h2 {
         font-size: 20px;
@@ -218,15 +314,18 @@ const Products = styled.div`
 `;
 
 const ProductContainer = styled.div`
-    min-width: 180px;
-    height: 200px;
+    min-width: 270px;
+    height: 300px;
     margin: 10px;
     background: #FFFFFF;
     border: 1px solid var(--primary-color);
     border-radius: 10px;
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
     position: relative;
-    cursor: pointer;
+
+    &:first-of-type {
+        margin-left: 0px;
+    }
 `;
 
 const ProductFront = styled.div`
@@ -237,8 +336,7 @@ const ProductFront = styled.div`
 
     img {
         width: 100%;
-        min-height: 110px;
-        max-height: 110px;
+        min-height: 220px;
         object-fit: cover;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
@@ -255,7 +353,7 @@ const ProductFront = styled.div`
 
 const ProductTitle = styled.span`
     width: 100%;
-    margin: 10px auto;
+    margin: 12px auto;
     padding: 0 10px;
     display: flex;
     justify-content: space-between;
@@ -264,20 +362,85 @@ const ProductTitle = styled.span`
     h1 {
         font-size: 18px;
         font-weight: 700;
-        text-align: left;
+        display: flex;
+        align-items: center;
     }
 `;
 
 const ProductBack = styled.div`
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     color: #000000;
     display: ${props => props.display};
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
+
+    p {
+        width: 100%;
+        height: 220px;
+        font-size: 16px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-overflow: ellipsis;
+    }
+`;
+
+const ProductButtons = styled.div`
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
     justify-content: space-around;
     align-items: center;
+
+    div {
+        width: 75%;
+        height: fit-content;
+    }
+
+    button {
+        width: 100%;
+        height: 30px;
+        margin: 3px auto;
+        background: var(--primary-color);
+        color: #FFFFFF;
+        border: 0px solid transparent;
+        border-radius: 15px;
+        font-size: 13px;
+        cursor: pointer;
+
+        &:active {
+            background: darkblue;
+        }
+    }
+`;
+
+const StyledIonIcon = styled(IonIcon)`
+    font-size: 25px;
+    cursor: pointer;
+    color: ${props => props.color};
+`;
+
+const WarnModal = styled.div`
+    width: 300px;
+    height: 70px;
+    background-color: red;
+    display: ${props => props.display};
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+
+    p {
+        font-size: 18px;
+        color: #FFFFFF;
+    }
 `;
