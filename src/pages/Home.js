@@ -228,7 +228,7 @@ const ProductContainer = styled.div`
 const ProductFront = styled.div`
     display: ${props => props.display};
     flex-direction: column;
-    justify-content; space-between;
+    justify-content: space-between;
     align-items: center;
 
     img {
