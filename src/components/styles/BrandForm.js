@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import ButtonForm from "./shared/ButtonForm";
-import Form from "./shared/Form";
-import Input from "./shared/Input";
-import { FlexContainer } from "./styles/FlexContainer";
+import ButtonForm from "../shared/ButtonForm";
+import Form from "../shared/Form";
+import Input from "../shared/Input";
+import { FlexContainer } from "./FlexContainer";
 
 export default function BrandForm({ setIsHidden }) {
   const [name, setName] = useState("");
