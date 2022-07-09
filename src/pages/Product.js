@@ -10,6 +10,8 @@ import { useIsLoadingContext } from '../contexts/IsLoadingContext';
 import WarnModal from '../components/shared/WarnModal.js';
 import { ThreeDots } from 'react-loader-spinner';
 import { NoProduct, ProductCard } from '../components/shared/ProductCard.js';
+import { IonIcon } from "@ionic/react";
+import { heartOutline, heart } from "ionicons/icons";
 
 export default function Product() {
     const { user, setUser } = useUserContext();
@@ -85,6 +87,38 @@ export default function Product() {
         console.log("added to cart");
     }
 
+    function addToFavorites() {
+        /* if (user.token && !isLoading) {
+            setIsLoading(true);
+            const request = axios.post(`${API}/user/favorites`, { id: product._id }, { Headers: {
+                "Authorization": `Bearer ${user.token}`
+            }});
+            request.then((res) => {
+                setUser({
+                    ...user,
+                    favorites: res.data
+                });
+                setIsLoading(false);
+            });
+            request.catch((err) => {
+                console.log(err);
+                setIsLoading(false);
+            });
+        } else if (!user.token) {
+            setMessage("Não há usuário logado. Faça login agora!");
+            setTimeout(() => {
+                setMessage("");
+                setIsLoading(false);
+            }, timer);
+        } else if (!message) {
+            setMessage("Botão desabilitado, aguarde!");
+            setTimeout(() => {
+                setMessage("");
+            }, timer);
+        } */
+        console.log("added to favorites");
+    }
+
     return (
         <>
             <Header />
@@ -96,7 +130,12 @@ export default function Product() {
                     <div>{!product ? "404: Produto não encontrado" : <ThreeDots />}</div>
                 </Image>
                 <InfoContainer>
-                    <h1>{product.name ? product.name : "404 não encontrado"}</h1>
+                    <ProductTitle>
+                        <h1>{product.name ? product.name : "404 não encontrado"}</h1>
+                        <StyledIonIcon onClick={addToFavorites}
+                        icon={/*user.favorites.includes(product._id) ? heart :*/heartOutline}
+                        color={/*user.favorites.includes(product._id) ? "red" :*/"black"} />
+                    </ProductTitle>
                     <h2>Descrição:</h2>
                     <h3>{product.description ? product.description : "Produto não encontrado. Retorne à página principal!"}</h3>
                     <Grid>
@@ -177,14 +216,6 @@ const InfoContainer = styled.div`
     margin: 10px;
     padding: 0 0 0 685px;
 
-    h1 {
-        width: 100%;
-        font-size: 26px;
-        font-weight: 700;
-        text-align: left;
-        margin-bottom: 30px;
-    }
-
     h2 {
         font-size: 20px;
         font-weight: 700;
@@ -202,6 +233,23 @@ const InfoContainer = styled.div`
 
     strong {
         font-weight: 700;
+    }
+`;
+
+const ProductTitle = styled.span`
+    width: 100%;
+    margin: 12px auto;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+        width: 100%;
+        font-size: 26px;
+        font-weight: 700;
+        text-align: left;
     }
 `;
 
@@ -270,4 +318,10 @@ const Products = styled.div`
     justify-content: ${props => props.justify};
     align-items: center;
     overflow-y: scroll;
+`;
+
+const StyledIonIcon = styled(IonIcon)`
+    font-size: 25px;
+    cursor: pointer;
+    color: ${props => props.color};
 `;
