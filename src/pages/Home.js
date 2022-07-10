@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { API } from '../API';
-import Header from "../components/layouts/Header.js";
+import Header from "../components/layouts/Header";
 import { FlexContainer } from "../components/styles/FlexContainer.js";
 import { useUserContext } from "../contexts/UserContext.js";
 import { useIsLoadingContext } from "../contexts/IsLoadingContext.js";
