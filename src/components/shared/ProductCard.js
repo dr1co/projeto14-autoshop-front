@@ -7,6 +7,7 @@ import { IonIcon } from "@ionic/react";
 import { heartOutline, heart } from "ionicons/icons";
 
 function ProductCard({ product, message, setMessage }) {
+    console.log(product)
     const [showDesc, setShowDesc] = useState(false);
     //const { user, setUser } = useUserContext();
     const { isLoading, setIsLoading } = useIsLoadingContext();
@@ -95,7 +96,7 @@ function ProductCard({ product, message, setMessage }) {
                     icon={/*user.favorites.includes(product._id) ? heart :*/heartOutline}
                     color={/*user.favorites.includes(product._id) ? "red" :*/"black"} />
                 </ProductTitle>
-                <p>{product.currency_symbol} {product.price.toFixed(2)}</p>
+                <p>{product.currency_symbol} {Number(product.price).toFixed(2)}</p>
             </ProductFront>
             <ProductBack display={showDesc ? "flex" : "none"} onMouseLeave={mouseOut}>
                 <p>{product.description}</p>

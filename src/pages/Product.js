@@ -56,11 +56,9 @@ export default function Product() {
     }, [product.category]);
 
     function addToCart() {
-        /* if (user.token && !isLoading) {
+        if (user.token && !isLoading) {
             setIsLoading(true);
-            const request = axios.post(`${API}/user/cart`, { id: productId }, { headers: {
-                "Authorization": `Bearer ${user.token}`
-            }});
+            const request = axios.post(`${API}/user/cart`, { id: productId }, user.auth);
             request.then((res) => {
                 setUser({
                     ...user,
@@ -83,7 +81,7 @@ export default function Product() {
             setTimeout(() => {
                 setMessage("");
             }, timer);
-        } */
+        } 
         console.log("added to cart");
     }
 

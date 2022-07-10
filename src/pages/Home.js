@@ -16,11 +16,14 @@ export default function Home (){
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState("");
     const { isLoading, setIsLoading } = useIsLoadingContext();
+    const {user} = useUserContext();
 
     useEffect(() => {
         setIsLoading(true);
-        const promise = axios.get(`${API}/products`);
+        console.log(user.auth);
+        const promise = axios.get(`${API}/products`,user.auth );
         promise.then((res) => {
+            console.log(res.data)
             setProducts(res.data);
             setIsLoading(false);
         });

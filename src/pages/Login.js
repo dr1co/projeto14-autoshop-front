@@ -8,7 +8,7 @@ import ButtonForm from "../components/shared/ButtonForm.js";
 import { FlexContainer } from "../components/styles/FlexContainer";
 import { useUserContext } from '../contexts/UserContext';
 
-export default function Login (){
+export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isDisabled, setIsDisabled] = useState(true);
@@ -28,8 +28,20 @@ export default function Login (){
 
     function validate(res) {
         if (res.status === 200) {
-            //localStorage.setItem("autoshop-user", JSON.stringify(res.data.token)); => persistência de login
-            setUser(res.data);
+            localStorage.setItem("user", JSON.stringify({
+                auth: {
+                    headers: {
+                        "Authorization": `Bearer ${res.data[0].token}`
+                    }
+                }
+            }));
+            setUser({
+                auth: {
+                    headers: {
+                        "Authorization": `Bearer ${res.data[0].token}`
+                    }
+                }
+            });
             setTimeout(() => navigate("/home"), 3000);
         } else {
             setPassword("");
@@ -37,7 +49,7 @@ export default function Login (){
         setResult(res.data);
     }
 
-    return(
+    return (
         <FlexContainer direction={"column"} justify={"center"} align={"center"}>
             <Title> Faça login </Title>
             <Form endpoint={"/login"} action={validate} body={body}>
