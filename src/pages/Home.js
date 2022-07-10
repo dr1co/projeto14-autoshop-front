@@ -49,10 +49,10 @@ export default function Home (){
                 <FlexContainer justify="space-between" align="center">
                     <ProductsBox>
                         <h2>Veículos</h2>
-                        <Products justify={products.filter(p => p.categoryId === "vehicle").length === 0 ? "center" : "start"}>
-                            {isLoading && products.filter(p => p.categoryId === "vehicle").length === 0 ? <ThreeDots /> :
-                            (products.filter(p => p.categoryId === "vehicle").length === 0 ? <NoProduct /> :
-                            products.filter(p => p.categoryId === "vehicle").map(p => <ProductCard
+                        <Products justify={products.filter(p => p.category === "vehicle").length === 0 ? "center" : "start"}>
+                            {isLoading && products.filter(p => p.category === "vehicle").length === 0 ? <ThreeDots /> :
+                            (products.filter(p => p.category === "vehicle").length === 0 ? <NoProduct /> :
+                            products.filter(p => p.category === "vehicle").map(p => <ProductCard
                                 key={p._id}
                                 product={p}
                                 message={message}
@@ -61,10 +61,10 @@ export default function Home (){
                     </ProductsBox>
                     <ProductsBox>
                         <h2>Acessórios</h2>
-                        <Products justify={products.filter(p => p.categoryId === "addon").length === 0 ? "center" : "start"}>
-                            {isLoading && products.filter(p => p.categoryId === "addon").length === 0 ? <ThreeDots /> :
-                            (products.filter(p => p.categoryId === "addon").length === 0 ? <NoProduct /> :
-                            products.filter(p => p.categoryId === "addon").map(p => <ProductCard
+                        <Products justify={products.filter(p => p.category === "addon").length === 0 ? "center" : "start"}>
+                            {isLoading && products.filter(p => p.category === "addon").length === 0 ? <ThreeDots /> :
+                            (products.filter(p => p.category === "addon").length === 0 ? <NoProduct /> :
+                            products.filter(p => p.category === "addon").map(p => <ProductCard
                             key={p._id}
                             product={p}
                             message={message}
