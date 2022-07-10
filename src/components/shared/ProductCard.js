@@ -21,6 +21,38 @@ function ProductCard({ product, message, setMessage }) {
         setShowDesc(false);
     }
 
+    function addToCart() {
+        /* if (user.token && !isLoading) {
+            setIsLoading(true);
+            const request = axios.post(`${API}/user/cart`, { id: productId }, { headers: {
+                "Authorization": `Bearer ${user.token}`
+            }});
+            request.then((res) => {
+                setUser({
+                    ...user,
+                    cart: res.data
+                });
+                setIsLoading(false);
+            });
+            request.catch((err) => {
+                console.log(err.response);
+                setIsLoading(false);
+            });
+        } else if (!user.token) {
+            setMessage("Usuário não encontrado, faça login!");
+            setTimeout(() => {
+                setMessage("");
+                navigate("/login");
+            }, timer);
+        } else if (!message) {
+            setMessage("Botão está desabilitado, aguarde!");
+            setTimeout(() => {
+                setMessage("");
+            }, timer);
+        } */
+        console.log("added to cart");
+    }
+
     function addToFavorites() {
         /* if (user.token && !isLoading) {
             setIsLoading(true);
@@ -70,7 +102,7 @@ function ProductCard({ product, message, setMessage }) {
                 <ProductButtons>
                     <div>
                         <button onClick={() => navigate(`/products/${product._id}`)}>Ver mais detalhes</button>
-                        <button onClick={() => console.log("added to cart")}>Comprar produto</button>
+                        <button onClick={addToCart}>Comprar produto</button>
                     </div>
                     <StyledIonIcon
                     icon={/*user.favorites.includes(product._id) ? heart :*/heartOutline}
