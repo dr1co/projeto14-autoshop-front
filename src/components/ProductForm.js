@@ -21,7 +21,7 @@ function Select({ setValue, value,text, name, result = [], options }) {
 const StyledSelect = styled.select`
     width: 100%;
     height: 50px;
-    border: 1px solid ${({ color }) => color ? color : "gray"};
+    border: 2px solid ${({ color }) => color ? color : "var(--primary-color)"};
     border-radius: 25px;
     padding: 15px;
     font-size: 18px;
@@ -34,7 +34,7 @@ const ErrorSpan = styled.span`
     font-size: 10px;
 `;
 
-const brands=['Volvo', "BMW", "Ford"];
+const brands=["Audi" , "BMW" , "Chery" , "Chevrolet" , "Citroën" , "Fiat" , "Ford" , "Honda" , "Hyundai" , "Jeep" , "Mercedes-Benz" , "Mitsubishi" , "Nissan" , "Peugeot" , "Renault" , "Suzuki" , "Toyota" , "Volkswagen"];
 const categories=['Veiculo', 'Acessório'];
 
 export default function ProductForm({ setIsHidden }) {

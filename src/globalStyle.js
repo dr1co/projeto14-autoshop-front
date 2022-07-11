@@ -6,14 +6,14 @@ export const GlobalStyle = createGlobalStyle`
         
         height: 100vh;
         width: 100%;
-        background-color: lightgray;
+        background-color: #fcf7e3;
     }
     .root{
         font-family: 'Inter', sans-serif;
         width: 100%;
         height: 100%;
-        --primary-color: blue;
-        --secondary-color: darkblue;
+        --primary-color: #f24421;
+        --secondary-color: #8c646c;
     }
 
     * {
