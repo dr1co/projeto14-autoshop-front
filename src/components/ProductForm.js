@@ -75,8 +75,8 @@ export default function ProductForm({ setIsHidden }) {
     setResult(result.data);
   }
   return (
-    <BackgroundOverlay>
-      <FlexContainer direction={"column"} justify={"center"} align={"center"}>
+    <BackgroundOverlay onClick={() => setIsHidden(true)}>
+      <FlexContainer onClick={e => e.stopPropagation()} width={"326px"}  direction={"column"} justify={"center"} align={"center"}>
         <Title>Cadastrar novo produto</Title>
         <Form endpoint={"/product"} action={validate} body={body} auth={true}>
           <Input text={"Nome"} name={"name"} setValue={setName} value={name} result={result} />
