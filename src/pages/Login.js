@@ -33,14 +33,18 @@ export default function Login() {
                     headers: {
                         "Authorization": `Bearer ${res.data[0].token}`
                     }
-                }
+                },
+                cart: res.data[0].cart,
+                favorites: res.data[0].favorites
             }));
             setUser({
                 auth: {
                     headers: {
                         "Authorization": `Bearer ${res.data[0].token}`
                     }
-                }
+                },
+                cart: res.data[0].cart,
+                favorites: res.data[0].favorites
             });
             setTimeout(() => navigate("/home"), 3000);
         } else {
