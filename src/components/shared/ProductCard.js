@@ -1,15 +1,18 @@
 import styled from 'styled-components';
+import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useIsLoadingContext } from '../../contexts/IsLoadingContext';
 import { IonIcon } from "@ionic/react";
 import { heartOutline, heart } from "ionicons/icons";
+import { useUserContext } from '../../contexts/UserContext';
+import { API } from '../../API';
 
 function ProductCard({ product, message, setMessage }) {
     console.log(product)
     const [showDesc, setShowDesc] = useState(false);
-    //const { user, setUser } = useUserContext();
+    const { user, setUser } = useUserContext();
     const { isLoading, setIsLoading } = useIsLoadingContext();
     const navigate = useNavigate();
     const timer = 3000;
@@ -23,9 +26,9 @@ function ProductCard({ product, message, setMessage }) {
     }
 
     function addToCart() {
-        /* if (user.token && !isLoading) {
+        if (user.token && !isLoading) {
             setIsLoading(true);
-            const request = axios.post(`${API}/user/cart`, { id: productId }, { headers: {
+            const request = axios.post(`${API}/user/cart`, { id: product._id }, { headers: {
                 "Authorization": `Bearer ${user.token}`
             }});
             request.then((res) => {
@@ -50,12 +53,11 @@ function ProductCard({ product, message, setMessage }) {
             setTimeout(() => {
                 setMessage("");
             }, timer);
-        } */
-        console.log("added to cart");
+        }
     }
 
     function addToFavorites() {
-        /* if (user.token && !isLoading) {
+        if (user.token && !isLoading) {
             setIsLoading(true);
             const request = axios.post(`${API}/user/favorites`, { id: product._id }, { Headers: {
                 "Authorization": `Bearer ${user.token}`
@@ -82,7 +84,7 @@ function ProductCard({ product, message, setMessage }) {
             setTimeout(() => {
                 setMessage("");
             }, timer);
-        } */
+        }
         console.log("added to favorites");
     }
 
@@ -93,8 +95,8 @@ function ProductCard({ product, message, setMessage }) {
                 <ProductTitle>
                     <h1>{product.name}</h1>
                     <StyledIonIcon
-                    icon={/*user.favorites.includes(product._id) ? heart :*/heartOutline}
-                    color={/*user.favorites.includes(product._id) ? "red" :*/"black"} />
+                    icon={user.favorites.includes(product._id) ? heart : heartOutline}
+                    color={user.favorites.includes(product._id) ? "red" : "black"} />
                 </ProductTitle>
                 <p>{product.currency_symbol} {Number(product.price).toFixed(2)}</p>
             </ProductFront>
@@ -106,9 +108,9 @@ function ProductCard({ product, message, setMessage }) {
                         <button onClick={addToCart}>Comprar produto</button>
                     </div>
                     <StyledIonIcon
-                    icon={/*user.favorites.includes(product._id) ? heart :*/heartOutline}
+                    icon={user.favorites.includes(product._id) ? heart : heartOutline}
                     onClick={addToFavorites}
-                    color={/*user.favorites.includes(product._id) ? "red" :*/"black"} />
+                    color={user.favorites.includes(product._id) ? "red" : "black"} />
                 </ProductButtons>
             </ProductBack>
         </ProductContainer>

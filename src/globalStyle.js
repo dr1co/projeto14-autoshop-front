@@ -12,8 +12,8 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Inter', sans-serif;
         width: 100%;
         height: 100%;
-        --primary-color: blue;
-        --secondary-color: darkblue;
+        --primary-color: #F24421;
+        --secondary-color: #8C646C;
     }
 
     * {
