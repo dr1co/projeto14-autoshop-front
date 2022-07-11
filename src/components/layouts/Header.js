@@ -11,11 +11,11 @@ export default function Header() {
     const [isHidden, setIsHidden] = useState(true);
     const navigate = useNavigate();
 
-    return (
+    return (<>
         <Container>
             <LeftIcons>
                 <AddProductButton onClick={setIsHidden} />
-                {!isHidden && <ProductForm setIsHidden={setIsHidden} />}
+
                 <StyledIcon icon={menuOutline} onClick={() => navigate("/home")} />
             </LeftIcons>
             <SearchBar placeholder="Pesquise por aqui" />
@@ -23,6 +23,8 @@ export default function Header() {
                 <StyledIcon icon={cart} onClick={() => navigate("/checkout")} />
             </RightIcons>
         </Container>
+        {!isHidden && <ProductForm setIsHidden={setIsHidden} />}
+    </>
     )
 }
 
