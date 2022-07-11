@@ -75,7 +75,7 @@ function Payment({ cart, auth }) {
 
     function buyNow() {
         if(card.name && card.number && card.cpf && card.expDate && card.code) {
-            const request = axios.post(`${API}/buy`, cart, auth)
+            const request = axios.post(`${API}/products/buy`, cart, auth)
             request.then(() => {
                 setSuccess(true);
             })
