@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import IsLoadingContextProvider from './contexts/IsLoadingContext';
 import UserContextProvider from './contexts/UserContext';
 import { GlobalStyle, ResetStyle } from "./globalStyle";
+import Checkout from './pages/Checkout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Product from './pages/Product';
@@ -19,6 +20,7 @@ export default function App() {
                         <Route path={"/login"} element={<Login />} />
                         <Route path={"/signup"} element={<SignUp />} />
                         <Route path={"/products/:productId"} element={<Product />} />
+                        <Route path={"/checkout"} element={<Checkout />} />
                     </Routes>
                 </IsLoadingContextProvider>
             </UserContextProvider>
