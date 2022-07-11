@@ -17,7 +17,7 @@ export default function Input({ setValue, value, text, type, name, result = [] }
 const StyledInput = styled.input`
     width: 100%;
     height: 50px;
-    border: 1px solid ${({ color }) => color ? color : "gray"};
+    border: 2px solid ${({ color }) => color ? color : "var(--primary-color)"};
     border-radius: 25px;
     padding: 15px;
     font-size: 18px;
