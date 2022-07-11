@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { API } from '../API';
-import Header from "../components/layouts/Header.js";
+import Header from "../components/layouts/Header";
 import { FlexContainer } from "../components/styles/FlexContainer.js";
 import { useUserContext } from "../contexts/UserContext.js";
 import { useIsLoadingContext } from "../contexts/IsLoadingContext.js";
@@ -16,11 +16,14 @@ export default function Home (){
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState("");
     const { isLoading, setIsLoading } = useIsLoadingContext();
+    const {user} = useUserContext();
 
     useEffect(() => {
         setIsLoading(true);
-        const promise = axios.get(`${API}/products`);
+        console.log(user.auth);
+        const promise = axios.get(`${API}/products`,user.auth );
         promise.then((res) => {
+            console.log(res.data)
             setProducts(res.data);
             setIsLoading(false);
         });
@@ -49,10 +52,10 @@ export default function Home (){
                 <FlexContainer justify="space-between" align="center">
                     <ProductsBox>
                         <h2>Veículos</h2>
-                        <Products justify={products.filter(p => p.categoryId === "vehicle").length === 0 ? "center" : "start"}>
-                            {isLoading && products.filter(p => p.categoryId === "vehicle").length === 0 ? <ThreeDots /> :
-                            (products.filter(p => p.categoryId === "vehicle").length === 0 ? <NoProduct /> :
-                            products.filter(p => p.categoryId === "vehicle").map(p => <ProductCard
+                        <Products justify={products.filter(p => p.category === "vehicle").length === 0 ? "center" : "start"}>
+                            {isLoading && products.filter(p => p.category === "vehicle").length === 0 ? <ThreeDots /> :
+                            (products.filter(p => p.category === "vehicle").length === 0 ? <NoProduct /> :
+                            products.filter(p => p.category === "vehicle").map(p => <ProductCard
                                 key={p._id}
                                 product={p}
                                 message={message}
@@ -61,10 +64,10 @@ export default function Home (){
                     </ProductsBox>
                     <ProductsBox>
                         <h2>Acessórios</h2>
-                        <Products justify={products.filter(p => p.categoryId === "addon").length === 0 ? "center" : "start"}>
-                            {isLoading && products.filter(p => p.categoryId === "addon").length === 0 ? <ThreeDots /> :
-                            (products.filter(p => p.categoryId === "addon").length === 0 ? <NoProduct /> :
-                            products.filter(p => p.categoryId === "addon").map(p => <ProductCard
+                        <Products justify={products.filter(p => p.category === "addon").length === 0 ? "center" : "start"}>
+                            {isLoading && products.filter(p => p.category === "addon").length === 0 ? <ThreeDots /> :
+                            (products.filter(p => p.category === "addon").length === 0 ? <NoProduct /> :
+                            products.filter(p => p.category === "addon").map(p => <ProductCard
                             key={p._id}
                             product={p}
                             message={message}

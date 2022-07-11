@@ -41,7 +41,7 @@ export default function Product() {
     }, []);
 
     useEffect(() => {
-        if (product.categoryId) {
+        if (product.category) {
             setIsLoading(true);
             const promise = axios.get(`${API}/products`);
             promise.then((res) => {
@@ -53,14 +53,12 @@ export default function Product() {
                 setIsLoading(false);
             })
         }
-    }, [product.categoryId]);
+    }, [product.category]);
 
     function addToCart() {
-        /* if (user.token && !isLoading) {
+        if (user.token && !isLoading) {
             setIsLoading(true);
-            const request = axios.post(`${API}/user/cart`, { id: productId }, { headers: {
-                "Authorization": `Bearer ${user.token}`
-            }});
+            const request = axios.post(`${API}/user/cart`, { id: productId }, user.auth);
             request.then((res) => {
                 setUser({
                     ...user,
@@ -83,7 +81,7 @@ export default function Product() {
             setTimeout(() => {
                 setMessage("");
             }, timer);
-        } */
+        } 
         console.log("added to cart");
     }
 
@@ -140,9 +138,9 @@ export default function Product() {
                     <h3>{product.description ? product.description : "Produto não encontrado. Retorne à página principal!"}</h3>
                     <Grid>
                         <Row>
-                            <p><strong>Marca: </strong>{product.brandId ? product.brandId : "404"}</p>
-                            <p><strong>Categoria: </strong>{product.categoryId === "vehicle" ? "Veículo" :
-                            ( product.categoryId ? "Acessório" : "404 não encontrado")}</p>
+                            <p><strong>Marca: </strong>{product.brand ? product.brand : "404"}</p>
+                            <p><strong>Categoria: </strong>{product.category === "vehicle" ? "Veículo" :
+                            ( product.category ? "Acessório" : "404 não encontrado")}</p>
                         </Row>
                         <Row>
                             <p><strong>Código do produto: </strong>{product.sku ? product.sku : "404 não encontrado"}</p>

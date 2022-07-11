@@ -14,7 +14,7 @@ export default function Form({ children, body, auth, action, endpoint }) {
 
 
         const promise = auth ?
-            axios.post(API + endpoint, body, user.token) :
+            axios.post(API + endpoint, body, user.auth) :
             axios.post(API + endpoint, body);
         promise.then(res => {
             action(res);
