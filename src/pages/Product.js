@@ -26,7 +26,7 @@ export default function Product() {
     useEffect(() => {
         if (productId) {
             setIsLoading(true);
-            const promise = axios.get(`${API}/products/${productId}`);
+            const promise = axios.get(`${API}/products/${productId}`, user.auth);
             promise.then((res) => {
                 setProduct(res.data);
                 setIsLoading(false);
@@ -43,7 +43,7 @@ export default function Product() {
     useEffect(() => {
         if (product.category) {
             setIsLoading(true);
-            const promise = axios.get(`${API}/products`);
+            const promise = axios.get(`${API}/products`, user.auth);
             promise.then((res) => {
                 setProducts(res.data);
                 setIsLoading(false);
@@ -56,7 +56,7 @@ export default function Product() {
     }, [product.category]);
 
     function addToCart() {
-        if (user.token && !isLoading) {
+        if (user.auth && !isLoading) {
             setIsLoading(true);
             const request = axios.post(`${API}/user/cart`, { id: productId }, user.auth);
             request.then((res) => {
@@ -70,11 +70,11 @@ export default function Product() {
                 console.log(err.response);
                 setIsLoading(false);
             });
-        } else if (!user.token) {
+        } else if (!user.auth) {
             setMessage("Usuário não encontrado, faça login!");
             setTimeout(() => {
                 setMessage("");
-                navigate("/login");
+                navigate("/");
             }, timer);
         } else if (!message) {
             setMessage("Botão está desabilitado, aguarde!");
@@ -145,7 +145,7 @@ export default function Product() {
                         <Row>
                             <p><strong>Código do produto: </strong>{product.sku ? product.sku : "404 não encontrado"}</p>
                             <p><strong>Preço: </strong>{product.currency_symbol ? product.currency_symbol : "?"}
-                            {product.price ? product.price.toFixed(2) : "NaN"}</p>
+                            {product.price ? Number(product.price).toFixed(2) : "NaN"}</p>
                         </Row>
                         <BuyNow onClick={addToCart}>Adicionar ao carrinho</BuyNow>
                     </Grid>

@@ -26,11 +26,9 @@ function ProductCard({ product, message, setMessage }) {
     }
 
     function addToCart() {
-        if (user.token && !isLoading) {
+        if (user.auth && !isLoading) {
             setIsLoading(true);
-            const request = axios.post(`${API}/user/cart`, { id: product._id }, { headers: {
-                "Authorization": `Bearer ${user.token}`
-            }});
+            const request = axios.post(`${API}/user/cart`, { id: product._id }, user.auth);
             request.then((res) => {
                 setUser({
                     ...user,
@@ -42,11 +40,11 @@ function ProductCard({ product, message, setMessage }) {
                 console.log(err.response);
                 setIsLoading(false);
             });
-        } else if (!user.token) {
+        } else if (!user.auth) {
             setMessage("Usuário não encontrado, faça login!");
             setTimeout(() => {
                 setMessage("");
-                navigate("/login");
+                navigate("/");
             }, timer);
         } else if (!message) {
             setMessage("Botão está desabilitado, aguarde!");
@@ -57,11 +55,9 @@ function ProductCard({ product, message, setMessage }) {
     }
 
     function addToFavorites() {
-        if (user.token && !isLoading) {
+        if (user.auth && !isLoading) {
             setIsLoading(true);
-            const request = axios.post(`${API}/user/favorites`, { id: product._id }, { Headers: {
-                "Authorization": `Bearer ${user.token}`
-            }});
+            const request = axios.post(`${API}/user/favorites`, product, user.auth);
             request.then((res) => {
                 setUser({
                     ...user,
@@ -73,7 +69,7 @@ function ProductCard({ product, message, setMessage }) {
                 console.log(err);
                 setIsLoading(false);
             });
-        } else if (!user.token) {
+        } else if (!user.auth) {
             setMessage("Não há usuário logado. Faça login agora!");
             setTimeout(() => {
                 setMessage("");

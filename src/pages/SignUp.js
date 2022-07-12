@@ -50,7 +50,7 @@ export default function SignUp() {
                 <ButtonForm text={"Cadastrar"} isDisabled={isDisabled} />
             </Form>
 
-            <StyledSpan onClick={() => navigate("/login")}>Já tem conta? Faça login</StyledSpan>
+            <StyledSpan onClick={() => navigate("/")}>Já tem conta? Faça login</StyledSpan>
 
         </FlexContainer>
     );
