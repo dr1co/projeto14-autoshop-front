@@ -16,8 +16,8 @@ export default function App() {
             <UserContextProvider>
                 <IsLoadingContextProvider>
                     <Routes>
-                        <Route path={"/home"} element={<Home />}/>
-                        <Route path={"/login"} element={<Login />} />
+                        <Route path={"/home"} element={<Home />} />
+                        <Route path={"/"} element={<Login />} />
                         <Route path={"/signup"} element={<SignUp />} />
                         <Route path={"/products/:productId"} element={<Product />} />
                         <Route path={"/checkout"} element={<Checkout />} />
